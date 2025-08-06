@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,12 +18,55 @@ import {
 
 export default function ComingSoonPage() {
   const [isSubscribed, setIsSubscribed] = useState(false);
+  
+  // Set your target opening date here (adjust as needed)
+  const targetDate = new Date("2025-09-15T10:00:00").getTime();
+  
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        // Countdown finished
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    // Calculate initial time
+    calculateTimeLeft();
+
+    // Update every second
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(timer);
+  }, [targetDate]);
+
+  // Helper function to format numbers with leading zero
+  const formatTime = (time: number) => {
+    return time.toString().padStart(2, '0');
+  };
 
   return (
     <main className="flex flex-col overflow-x-hidden">
       {/* Hero Section */}
       <section
-        className="relative bg-black text-white min-h-screen flex items-center justify-center"
+        className="relative bg-primary text-white min-h-screen flex items-center justify-center"
         style={{ clipPath: "polygon(0 0, 100% 0, 100% 98%, 0 100%)" }}
       >
         <div
@@ -32,10 +75,10 @@ export default function ComingSoonPage() {
             backgroundImage: `url('/crossfit-gym.png')`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/90" />
 
         <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-          <Badge className="mb-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 text-lg font-bold">
+          <Badge className="mb-8 bg-red-600 hover:bg-red-700 text-white px-6 py-3 text-lg font-bold select-none">
             OPENING SOON
           </Badge>
 
@@ -51,7 +94,7 @@ export default function ComingSoonPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <div className="flex items-center gap-3 text-white text-xl">
               <MapPin className="h-6 w-6 text-red-500" />
-              <span>Downtown District • Opening Spring 2024</span>
+              <span>Gachibowli, Hyderabad • Opening September 15, 2025</span>
             </div>
           </div>
         </div>
@@ -59,7 +102,7 @@ export default function ComingSoonPage() {
 
       {/* What We Offer Section */}
       <section
-        className="bg-white text-black relative py-32"
+        className="bg-background text-black relative py-32"
         style={{ clipPath: "polygon(0 3%, 100% 0, 100% 97%, 0 100%)" }}
       >
         <div className="max-w-6xl mx-auto px-6">
@@ -118,7 +161,7 @@ export default function ComingSoonPage() {
 
       {/* Countdown Section */}
       <section
-        className="bg-black text-white relative py-32"
+        className="bg-primary text-white relative py-32"
         style={{ clipPath: "polygon(0 2%, 100% 0, 100% 98%, 0 100%)" }}
       >
         <div className="max-w-5xl mx-auto text-center px-6">
@@ -127,10 +170,10 @@ export default function ComingSoonPage() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {[
-              { label: "Days", value: "45" },
-              { label: "Hours", value: "12" },
-              { label: "Minutes", value: "34" },
-              { label: "Seconds", value: "56" },
+              { label: "Days", value: formatTime(timeLeft.days) },
+              { label: "Hours", value: formatTime(timeLeft.hours) },
+              { label: "Minutes", value: formatTime(timeLeft.minutes) },
+              { label: "Seconds", value: formatTime(timeLeft.seconds) },
             ].map((item, index) => (
               <Card
                 key={index}
@@ -155,7 +198,7 @@ export default function ComingSoonPage() {
 
       {/* Membership Preview Section */}
       <section
-        className="bg-white text-black relative py-32"
+        className="bg-background text-black relative py-32"
         style={{ clipPath: "polygon(0 3%, 100% 0, 100% 97%, 0 100%)" }}
       >
         <div className="max-w-5xl mx-auto px-6 text-center">
@@ -174,7 +217,7 @@ export default function ComingSoonPage() {
 
       {/* Contact & Footer */}
       <section
-        className="bg-black text-white relative py-24"
+        className="bg-primary text-white relative py-24"
         style={{ clipPath: "polygon(0 2%, 100% 0, 100% 100%, 0 100%)" }}
       >
         <div className="max-w-7xl mx-auto px-6">
@@ -193,16 +236,16 @@ export default function ComingSoonPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white/30 hover:bg-white/10 text-white h-12 w-12"
+                  className="bg-white/10 text-white h-12 w-12"
                 >
-                  <Facebook className="h-6 w-6 text-black" />
+                  <Facebook className="h-6 w-6 text-white" />
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white/30 hover:bg-white/10 text-white h-12 w-12"
+                  className="bg-white/10 text-white h-12 w-12"
                 >
-                  <Instagram className="h-6 w-6 text-black" />
+                  <Instagram className="h-6 w-6 text-white" />
                 </Button>
               </div>
             </div>
@@ -258,22 +301,24 @@ export default function ComingSoonPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
                   <span className="text-gray-300">
-                    123 Fitness Street
+                    1st Floor, Tngo's Colony
                     <br />
-                    Downtown District
+                    Plot 108, My Home Vihanga Road
                     <br />
-                    City, State 12345
+                    Gachibowli, Hyderabad
+                    <br />
+                    Telangana 500032
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-red-500" />
                   <span className="text-gray-300">
-                    info@crossfitcommune.com
+                    info@commune-wellness.com
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-red-500" />
-                  <span className="text-gray-300">(555) 123-4567</span>
+                  <span className="text-gray-300">+91 89396 78945</span>
                 </div>
               </div>
             </div>
@@ -289,7 +334,7 @@ export default function ComingSoonPage() {
                 rel="noopener noreferrer"
                 className="hover:opacity-80 transition-opacity"
               >
-                <div className="px-4 py-2 font-bold text-lg bg-black text-white">
+                <div className="px-4 py-2 font-bold text-lg bg-primary text-white">
                   CrossFit
                 </div>
               </a>
@@ -298,7 +343,7 @@ export default function ComingSoonPage() {
               </p>
             </div>
             <p className="text-gray-400 text-sm">
-              © 2024 CrossFit Commune. All rights reserved.
+              © 2025 CrossFit Commune. All rights reserved.
             </p>
           </div>
         </div>
