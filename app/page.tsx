@@ -318,7 +318,7 @@ export default function ComingSoonPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-red-500" />
-                  <span className="text-gray-300">+91 89396 78945</span>
+                  <span className="text-gray-300">+91 81211 45533</span>
                 </div>
               </div>
             </div>
