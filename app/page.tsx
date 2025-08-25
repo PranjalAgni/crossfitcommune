@@ -18,15 +18,15 @@ import {
 
 export default function ComingSoonPage() {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  
+
   // Set your target opening date here (adjust as needed)
   const targetDate = new Date("2025-09-15T10:00:00").getTime();
-  
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
   });
 
   useEffect(() => {
@@ -36,8 +36,12 @@ export default function ComingSoonPage() {
 
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const hours = Math.floor(
+          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (difference % (1000 * 60 * 60)) / (1000 * 60)
+        );
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft({ days, hours, minutes, seconds });
@@ -59,7 +63,7 @@ export default function ComingSoonPage() {
 
   // Helper function to format numbers with leading zero
   const formatTime = (time: number) => {
-    return time.toString().padStart(2, '0');
+    return time.toString().padStart(2, "0");
   };
 
   return (
@@ -67,7 +71,9 @@ export default function ComingSoonPage() {
       {/* Hero Section */}
       <section
         className="relative bg-primary text-white min-h-screen flex items-center justify-center"
-        style={{ clipPath: "polygon(0 0, 100% 0, 100% 98%, 0 100%)" }}
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 100% 98%, 0 100%)",
+        }}
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-3"
