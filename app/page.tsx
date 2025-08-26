@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Navigation } from "@/components/navigation";
 import {
   MapPin,
   Mail,
@@ -68,8 +69,11 @@ export default function ComingSoonPage() {
 
   return (
     <main className="flex flex-col overflow-x-hidden">
+      {/* this is the navigation component wip */}
+      {/* <Navigation /> */}
       {/* Hero Section */}
       <section
+        id="hero"
         className="relative bg-primary text-white min-h-screen flex items-center justify-center"
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% 98%, 0 100%)",
@@ -108,6 +112,7 @@ export default function ComingSoonPage() {
 
       {/* What We Offer Section */}
       <section
+        id="about"
         className="bg-background text-black relative py-32"
         style={{ clipPath: "polygon(0 3%, 100% 0, 100% 97%, 0 100%)" }}
       >
@@ -167,6 +172,7 @@ export default function ComingSoonPage() {
 
       {/* Countdown Section */}
       <section
+        id="countdown"
         className="bg-primary text-white relative py-32"
         style={{ clipPath: "polygon(0 2%, 100% 0, 100% 98%, 0 100%)" }}
       >
@@ -204,6 +210,7 @@ export default function ComingSoonPage() {
 
       {/* Membership Preview Section */}
       <section
+        id="membership"
         className="bg-background text-black relative py-32"
         style={{ clipPath: "polygon(0 3%, 100% 0, 100% 97%, 0 100%)" }}
       >
@@ -223,6 +230,7 @@ export default function ComingSoonPage() {
 
       {/* Contact & Footer */}
       <section
+        id="contact"
         className="bg-primary text-white relative py-24"
         style={{ clipPath: "polygon(0 2%, 100% 0, 100% 100%, 0 100%)" }}
       >
