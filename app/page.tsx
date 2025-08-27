@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/navigation";
+import "./styles.css";
+
 import {
   MapPin,
   Mail,
@@ -69,8 +71,6 @@ export default function ComingSoonPage() {
 
   return (
     <main className="flex flex-col overflow-x-hidden">
-      {/* this is the navigation component wip */}
-      {/* <Navigation /> */}
       {/* Hero Section */}
       <section
         id="hero"
