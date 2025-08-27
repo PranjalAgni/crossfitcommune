@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google"
-import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Crossfit Commune",
-  description: "Crossfit Commune - The Ultimate CrossFit Experience",
-};
+  description: "Crossfit Commune - Move Connect Transform",
+  icons: {
+    icon: "/favicon.png",                // default favicon
+  },
+  keywords: ["CrossFit", "Fitness", "Gym", "Workout", "Training", "Strength", "Hyrox", "Personal Training", "Remote Coaching"],
+  authors: [{ name: "Crossfit Commune Team" }],
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
+}
 
 const outfit = Outfit({
   subsets: ["latin"],
