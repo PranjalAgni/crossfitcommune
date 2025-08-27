@@ -3,8 +3,17 @@
 import Image from "next/image";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
-import { BadgeCheck, CalendarDays, Clock, MapPin, Plus, Users, X } from "lucide-react";
-import "./styles.css";
+import {
+  BadgeCheck,
+  CalendarDays,
+  Clock,
+  Facebook,
+  Instagram,
+  MapPin,
+  Plus,
+  Users,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { displayLabel } from "@/lib/time";
@@ -546,19 +555,19 @@ function FAQSection() {
     },
     {
       q: "What sets you apart from other gyms?",
-      a: "We are a community of people that share the same fitness journey as you. We are here to build each other up - if you win, we all win."
+      a: "We are a community of people that share the same fitness journey as you. We are here to build each other up - if you win, we all win.",
     },
     {
-        q: "How often do you recommend coming to workout classes?",
-        a: "If you are a beginner, we recommend starting with 2 to 4 classes a week, with the goal of working up to 5 a week after your first few months. It may take a while for your body to get used to training at that intensity, so listen to your body and know you will need recovery time between training days."
+      q: "How often do you recommend coming to workout classes?",
+      a: "If you are a beginner, we recommend starting with 2 to 4 classes a week, with the goal of working up to 5 a week after your first few months. It may take a while for your body to get used to training at that intensity, so listen to your body and know you will need recovery time between training days.",
     },
     {
       q: "Do you provide free refreshments there?",
-      a: "We have filtered water on site and freshly brewed coffee from our coffee machine", 
+      a: "We have filtered water on site and freshly brewed coffee from our coffee machine",
     },
     {
       q: "Do I have to be fit to join?",
-      a: "No! No matter what your current fitness level is, we have the fitness program that is right for you. Every workout is designed to help you succeed, improve fitness, and move you toward your goals. Our program is designed for universal scalability, making it the perfect application for any committed individual regardless of experience."
+      a: "No! No matter what your current fitness level is, we have the fitness program that is right for you. Every workout is designed to help you succeed, improve fitness, and move you toward your goals. Our program is designed for universal scalability, making it the perfect application for any committed individual regardless of experience.",
     },
     {
       q: "What payment methods do you accept?",
@@ -584,7 +593,10 @@ function FAQSection() {
     });
 
   return (
-    <section className="relative overflow-hidden bg-neutral-950 text-white transform-gpu skew-y-2">
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-neutral-950 text-white transform-gpu skew-y-2"
+    >
       <div className="-skew-y-2">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-28 lg:px-8">
           <h2 className="text-center text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
@@ -654,6 +666,411 @@ function FAQSection() {
   );
 }
 
+function ContactSection() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+  }>({});
+  const [sent, setSent] = useState(false);
+
+  // --- Indian phone validator ---
+  // Accepts: 9876543210, 09876543210, +91 98765 43210, +919876543210 (with spaces/hyphens)
+  const isValidIndianPhone = (raw: string) => {
+    let val = raw.trim();
+
+    // Quick reject: letters (or anything not digit/space/hyphen/+)
+    if (/[^0-9+\s-]/.test(val)) return false;
+
+    // Normalise
+    val = val.replace(/[\s-]/g, ""); // remove spaces & hyphens
+    if (val.startsWith("+")) val = val.slice(1);
+    if (val.startsWith("91")) val = val.slice(2);
+    if (val.startsWith("0") && val.length === 11) val = val.slice(1);
+
+    // Must be 10 digits starting 6-9
+    return /^[6-9]\d{9}$/.test(val);
+  };
+
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+
+    // Live feedback for phone
+    if (name === "phone") {
+      if (value.length === 0) {
+        setErrors((er) => ({ ...er, phone: undefined }));
+      } else if (/[^0-9+\s-]/.test(value)) {
+        setErrors((er) => ({
+          ...er,
+          phone: "Only digits, spaces, hyphens and + are allowed.",
+        }));
+      } else if (!isValidIndianPhone(value)) {
+        setErrors((er) => ({
+          ...er,
+          phone:
+            "Enter a valid Indian phone number (e.g., 9876543210 or +91 98765 43210).",
+        }));
+      } else {
+        setErrors((er) => ({ ...er, phone: undefined }));
+      }
+    }
+  };
+
+  const validate = () => {
+    const next: { name?: string; email?: string; phone?: string } = {};
+    if (!form.name.trim()) next.name = "Name is required";
+    if (!form.email.trim()) next.email = "Email is required";
+    if (form.phone.trim() && !isValidIndianPhone(form.phone)) {
+      next.phone =
+        "Enter a valid Indian phone number (e.g., 9876543210 or +91 98765 43210).";
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    // For now just log values and reset — API wiring later
+    // eslint-disable-next-line no-console
+    console.log("Contact form submitted:", form);
+    setForm({ name: "", email: "", phone: "", message: "" });
+    setErrors({});
+    setSent(true);
+    setTimeout(() => setSent(false), 3500);
+  };
+
+  return (
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-white text-neutral-900 transform-gpu skew-y-2"
+    >
+      <div className="-skew-y-2">
+        <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 md:py-28 lg:px-8">
+          <h2 className="text-center text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
+            Contact Us
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-600">
+            Questions, drop-ins, or memberships—send us a message and we’ll get
+            back soon.
+          </p>
+
+          <form onSubmit={onSubmit} className="mt-10 grid grid-cols-1 gap-5">
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-bold uppercase tracking-wide"
+              >
+                Name *
+              </label>
+              <input
+                id="name"
+                name="name"
+                value={form.name}
+                onChange={onChange}
+                required
+                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                placeholder="Your full name"
+                aria-invalid={!!errors.name}
+              />
+              {errors.name && (
+                <p className="mt-2 text-sm text-red-600">{errors.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-bold uppercase tracking-wide"
+              >
+                Email *
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={onChange}
+                required
+                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                placeholder="you@example.com"
+                aria-invalid={!!errors.email}
+              />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="phone"
+                className="mb-2 block text-sm font-bold uppercase tracking-wide"
+              >
+                Phone
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputMode="tel"
+                pattern="^(?:(?:\+?91[-\s]?)|0)?[6-9]\d{9}$"
+                value={form.phone}
+                onChange={onChange}
+                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                placeholder="Optional"
+                aria-invalid={!!errors.phone}
+                aria-describedby="phone-help"
+              />
+              {errors.phone && (
+                <p id="phone-help" className="mt-2 text-sm text-red-600">
+                  {errors.phone}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="message"
+                className="mb-2 block text-sm font-bold uppercase tracking-wide"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                value={form.message}
+                onChange={onChange}
+                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                placeholder="Tell us a bit about your goals"
+              />
+            </div>
+
+            <div className="mt-2">
+              <Button
+                type="submit"
+                className="rounded-full bg-neutral-900 px-6 py-6 text-white hover:bg-neutral-800"
+              >
+                Send Message
+              </Button>
+              {sent && (
+                <span className="ml-4 align-middle text-sm font-medium text-green-700">
+                  Thanks! We'll be in touch.
+                </span>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section
+      id="about"
+      className="relative overflow-hidden bg-neutral-950 text-white transform-gpu skew-y-2"
+    >
+      <div className="-skew-y-2">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-24 sm:px-6 md:grid-cols-2 md:py-28 lg:px-8">
+          {/* Left copy with vertical divider */}
+          <div className="order-2 md:order-1">
+            <h2 className="text-3xl font-extrabold uppercase leading-tight sm:text-5xl">
+              About the Gym
+            </h2>
+            <div className="mt-8 flex">
+              <div
+                className="ml-2 w-1 shrink-0 rounded bg-white/80"
+                aria-hidden
+              />
+              <div className="pl-8 space-y-8 text-white/85">
+                {/* Tagline */}
+                <div>
+                  <h4 className="text-lg font-bold uppercase tracking-widest text-indigo-300 mb-2">
+                    move.connect.Transform
+                  </h4>
+                </div>
+
+                {/* Vision */}
+                <div>
+                  <h5 className="font-extrabold text-xl mb-1 text-white">
+                    Vision
+                  </h5>
+                  <p>
+                    To be the most trusted and empowering fitness community in
+                    the city, delivering world-class coaching in CrossFit,
+                    Olympic lifting, gymnastics, and endurance training,
+                    creating a space where every individual, from beginner to
+                    elite athlete, transforms their life through movement,
+                    connection, and confidence.
+                  </p>
+                </div>
+
+                {/* Mission */}
+                <div>
+                  <h5 className="font-extrabold text-xl mb-1 text-white">
+                    Mission
+                  </h5>
+                  <p>
+                    Our mission is to empower individuals to live stronger,
+                    healthier, and more confident lives by delivering expert,
+                    scalable CrossFit coaching rooted in proper movement. We
+                    create a fun, inclusive environment where every workout
+                    builds not just fitness, but lasting community connections
+                    that inspire growth inside and outside the gym.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right image */}
+          <div className="order-1 md:order-2">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <Image
+                src="/cfcheer2.jpg"
+                width={500}
+                height={500}
+                alt="Community Image"
+                className="object-cover w-full h-full static"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="skew-y-2 bg-white text-black">
+      <div className="-skew-y-2 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-6">
+          {/* Brand / badges */}
+          <div className="space-y-6 md:col-span-2">
+            <a href="#home" className="ml-10 md:ml-0">
+              <Image
+                src="/cfcommune.png"
+                alt="CrossFit Commune Logo"
+                width={100}
+                height={100}
+              />
+            </a>
+
+            <a href="https://www.crossfit.com/" target="_blank" className="ml-10 md:ml-0">
+              <img
+                src="https://cdn.prod.website-files.com/64f9e931ffafed9df9bb7f10/64f9e931ffafed9df9bb7f7c_CF_Badge_BG_WHT_125x63.webp"
+                loading="lazy"
+                alt="CrossFit Logo "
+                id="logoPrimary"
+                width={100}
+                height={100}
+              />
+            </a>
+
+            <div className="h-12 w-40 rounded-md bg-white/10" aria-hidden />
+          </div>
+
+          {/* Columns */}
+          <div>
+            <h4 className="text-sm font-extrabold uppercase tracking-wider text-black/70">
+              Programs
+            </h4>
+            <ul className="mt-4 space-y-3 text-black/80">
+              <li className="hover:text-black">Crossfit</li>
+              <li className="hover:text-black">Hyrox</li>
+              <li className="hover:text-black">Personal Training</li>
+              <li className="hover:text-black">Remote Coaching</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-extrabold uppercase tracking-wider text-black/70">
+              About
+            </h4>
+            <ul className="mt-4 space-y-3 text-black/80">
+              <li>
+                <a className="hover:text-black" href="#about">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a className="hover:text-black" href="#contact">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a className="hover:text-black" href="#pricing">
+                  Membership Pricing
+                </a>
+              </li>
+              <li>
+                <a className="hover:text-black" href="#faq">
+                  FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-extrabold uppercase tracking-wider text-black/70">
+              Legal
+            </h4>
+            <ul className="mt-4 space-y-3 text-black/80">
+              <li className="hover:text-black">Privacy Policy</li>
+              <li className="hover:text-black">Terms of Use</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-extrabold uppercase tracking-wider text-black/70">
+              Address
+            </h4>
+            <ul className="mt-4 space-y-3 text-black/80">
+              <li>1st floor plot #108, TNGO colony Gachibowli</li>
+              <li>Hyderabad, Telangana 500032</li>
+            </ul>
+            <h4 className="mt-8 text-sm font-extrabold uppercase tracking-wider text-black/70">
+              Locations
+            </h4>
+            <p className="mt-3 text-black/80">Hyderabad</p>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-black pt-6 text-sm text-black/70">
+          <p>©{year} Copyright YOUR BOX</p>
+          <div className="flex items-center gap-4">
+            <a
+              aria-label="Facebook"
+              href="#"
+              className="inline-flex items-center justify-center rounded-full bg-white/10 p-2 hover:bg-white/15"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              aria-label="Instagram"
+              href="#"
+              className="inline-flex items-center justify-center rounded-full bg-white/10 p-2 hover:bg-white/15"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 export default function NewLandingPage() {
   return (
     <main className="min-h-screen text-white">
@@ -665,14 +1082,9 @@ export default function NewLandingPage() {
       <TimingsSection />
       <PricingSection />
       <FAQSection />
-      {/* Placeholder for next dark section */}
-      <section className="skew-y-2 bg-neutral-950 py-16 text-center text-white/70">
-        <div className="-skew-y-2 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm">
-            Next section goes here… we’ll build it together.
-          </p>
-        </div>
-      </section>
+      <ContactSection />
+      <AboutSection />
+      <Footer />
     </main>
   );
 }
