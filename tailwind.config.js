@@ -70,8 +70,10 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular'],
+        // Outfit everywhere you use `font-sans`
+        // sans: ["var(--font-outfit)", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Keep Geist Mono for code if you want `font-mono`
+        // mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
