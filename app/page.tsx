@@ -744,21 +744,39 @@ function ContactSection() {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    // For now just log values and reset — API wiring later
-    // eslint-disable-next-line no-console
-    track("contact_form_submit", {
-      form_data: {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        message: form.message,
-      },
-    });
-    console.log("Contact form submitted:", form);
-    setForm({ name: "", email: "", phone: "", message: "" });
-    setErrors({});
-    setSent(true);
-    setTimeout(() => setSent(false), 3500);
+    
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    })
+      .then(() => {
+        track("contact_form_submit", {
+          form_data: {
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            message: form.message,
+          },
+        });
+      })
+      .catch((error) => {
+        track("contact_form_submit_error", {
+          form_data: {
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            message: form.message,
+          },
+          error,
+        });
+      })
+      .finally(() => {
+        setForm({ name: "", email: "", phone: "", message: "" });
+        setErrors({});
+        setSent(true);
+        setTimeout(() => setSent(false), 3500);
+      });
   };
 
   return (
