@@ -43,7 +43,7 @@ export default function Header() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild className="rounded-full bg-white text-gray-900 hover:bg-white/50">
-              <a href="#consult" className="px-6 py-3 text-sm font-extrabold">Book a Free Consultation</a>
+              <a href="#contact" className="px-6 py-3 text-sm font-extrabold">Book a Free Consultation</a>
             </Button>
           </div>
         </div>
