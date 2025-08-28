@@ -3,6 +3,8 @@
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
+import { PHONE, WHATSAPP_URL, INSTAGRAM_URL } from "@/lib/constants";
+import { track, trackAndNavigate } from "@/lib/ga";
 import { displayLabel } from "@/lib/time";
 import {
   BadgeCheck,
@@ -11,6 +13,7 @@ import {
   Facebook,
   Instagram,
   MapPin,
+  MessageCircle,
   Plus,
   Users,
   X,
@@ -37,13 +40,15 @@ function BenefitsSection() {
               </div>
               {/* heading */}
               <div className="mt-8 text-3xl text-black font-extrabold uppercase leading-tight tracking-tight md:text-[2rem]">
-                24/7 Member
+                Open Gym Member
                 <br />
                 Access
               </div>
               {/* benefit para */}
               <div className="mx-auto mt-3 max-w-xs text-gray-600">
-                Members receive 24/7 access to the facility!
+                Our Open Gym allows members to access our training area for
+                personal workouts and basic equipment for free during Open Gym
+                hours.
               </div>
             </div>
 
@@ -161,7 +166,7 @@ function CommunityLocationSection() {
             <div
               className="absolute right-6 top-6 w-[min(90%,26rem)] rounded-xl bg-white p-6 text-neutral-900 shadow-xl
               sm:right-6 sm:top-6
-              max-sm:right-2 max-sm:top-2 max-sm:p-3 max-sm:w-[90vw] max-sm:rounded-lg max-sm:text-sm max-sm:shadow-lg"
+              max-sm:right-2 max-sm:top-2 max-sm:p-3 max-sm:w-[90vw] max-sm:rounded-lg max-sm:text-sm max-sm:shadow-lg max-sm:hidden"
             >
               <div className="flex items-start gap-3 max-sm:gap-2">
                 <MapPin className="mt-1 h-5 w-5 max-sm:h-4 max-sm:w-4" />
@@ -205,7 +210,7 @@ function GettingStartedSection() {
             Getting Started Is Easy
           </h2>
 
-          <div className="mt-16 grid grid-cols-1 gap-14 md:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 gap-14 md:grid-cols-3 text-center">
             {/* Step 1 */}
             <div>
               <div className="text-7xl font-light leading-none text-indigo-900 sm:text-8xl">
@@ -221,7 +226,7 @@ function GettingStartedSection() {
                 looks like for you.
               </p>
               <a
-                href="#consult"
+                href="#contact"
                 className="mt-6 inline-block font-extrabold underline decoration-2 underline-offset-4"
               >
                 BOOK CALL HERE
@@ -234,13 +239,12 @@ function GettingStartedSection() {
                 2
               </div>
               <h3 className="mt-6 text-2xl font-extrabold uppercase leading-snug">
-                Start 7‑Day
+                START YOUR 1-DAY TRIAL
                 <br /> Test Drive
               </h3>
               <p className="mt-4 max-w-prose text-neutral-700">
-                After the call, we’ll activate your 7‑Day Test Drive and help
-                you schedule your first classes so you can experience the vibe
-                and coaching.
+                Join your first class, experience the coaching and community,
+                and let us assess your starting point.
               </p>
             </div>
 
@@ -254,9 +258,9 @@ function GettingStartedSection() {
                 <br /> Sign‑Up
               </h3>
               <p className="mt-4 max-w-prose text-neutral-700">
-                Once your Test Drive wraps, a coach will follow up to discuss
-                options and get you set up with the plan that fits your goals
-                and schedule.
+                After your trial, a coach will walk you through the best
+                membership option based on your goals and schedule, and get you
+                started on your training journey.
               </p>
             </div>
           </div>
@@ -608,7 +612,7 @@ function FAQSection() {
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="tel:+918121145533"
+              href={`tel:+${PHONE}`}
               className="inline-block transform skew-x-[-8deg] bg-white px-6 py-2 font-extrabold text-neutral-900"
             >
               <span className="block skew-x-[8deg]">+91 8121145533</span>
@@ -742,6 +746,14 @@ function ContactSection() {
     if (!validate()) return;
     // For now just log values and reset — API wiring later
     // eslint-disable-next-line no-console
+    track("contact_form_submit", {
+      form_data: {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+      },
+    });
     console.log("Contact form submitted:", form);
     setForm({ name: "", email: "", phone: "", message: "" });
     setErrors({});
@@ -955,12 +967,12 @@ function AboutSection() {
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="skew-y-2 bg-white text-black">
-      <div className="-skew-y-2 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="skew-y-2 bg-white text-black text-center">
+      <div className="-skew-y-2 mx-auto max-w-7xl px-4 py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-6">
           {/* Brand / badges */}
-          <div className="space-y-6 md:col-span-2">
-            <a href="#home" className="ml-10 md:ml-0">
+          <div className="space-y-6 md:col-span-2 flex flex-col justify-center items-center">
+            <a href="#home" className="md:ml-0">
               <Image
                 src="/cfcommune.png"
                 alt="CrossFit Commune Logo"
@@ -969,7 +981,11 @@ function Footer() {
               />
             </a>
 
-            <a href="https://www.crossfit.com/" target="_blank" className="ml-10 md:ml-0">
+            <a
+              href="https://www.crossfit.com/"
+              target="_blank"
+              className="md:ml-0"
+            >
               <img
                 src="https://cdn.prod.website-files.com/64f9e931ffafed9df9bb7f10/64f9e931ffafed9df9bb7f7c_CF_Badge_BG_WHT_125x63.webp"
                 loading="lazy"
@@ -1051,16 +1067,32 @@ function Footer() {
           <p>©{year} Copyright YOUR BOX</p>
           <div className="flex items-center gap-4">
             <a
-              aria-label="Facebook"
-              href="#"
+              aria-label="Whatsapp"
+              href={WHATSAPP_URL}
+              target="_blank"
               className="inline-flex items-center justify-center rounded-full bg-white/10 p-2 hover:bg-white/15"
+              onClick={(e) =>
+                trackAndNavigate(e, WHATSAPP_URL, "whatsapp_click", {
+                  platform: "whatsapp",
+                  location: "footer",
+                  link_url: WHATSAPP_URL,
+                })
+              }
             >
-              <Facebook className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5" />
             </a>
             <a
               aria-label="Instagram"
-              href="#"
+              href={INSTAGRAM_URL}
               className="inline-flex items-center justify-center rounded-full bg-white/10 p-2 hover:bg-white/15"
+              onClick={(e) =>
+                trackAndNavigate(e, INSTAGRAM_URL, "instagram_click", {
+                  platform: "instagram",
+                  location: "footer",
+                  link_url: INSTAGRAM_URL,
+                })
+              }
+              target="_blank"
             >
               <Instagram className="h-5 w-5" />
             </a>
