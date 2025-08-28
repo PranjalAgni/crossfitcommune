@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     await resend.emails.send({
       from: "website@crossfitcommune.com",
-      to: "info@crossfitcommune.com",
+      to: process.env.CONTACT_FORM_MAIL_TO!,
       subject: `New contact from ${name}`,
       html: `
         <h3>New Contact Form Submission</h3>
