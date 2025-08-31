@@ -16,7 +16,7 @@ import {
   MessageCircle,
   Plus,
   Users,
-  X
+  X,
 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -285,58 +285,23 @@ function TimingsSection() {
   const SCHEDULE: { day: string; slots: string[] }[] = [
     {
       day: "Monday",
-      slots: [
-        "6:30 AM",
-        "7:30 AM",
-        "8:30 AM",
-        "5:30 PM",
-        "6:30 PM",
-        "7:30 PM",
-      ],
+      slots: ["6:30 AM", "7:30 AM", "8:30 AM", "5:30 PM", "6:30 PM", "7:30 PM"],
     },
     {
       day: "Tuesday",
-      slots: [
-        "6:30 AM",
-        "7:30 AM",
-        "8:30 AM",
-        "5:30 PM",
-        "6:30 PM",
-        "7:30 PM",
-      ],
+      slots: ["6:30 AM", "7:30 AM", "8:30 AM", "5:30 PM", "6:30 PM", "7:30 PM"],
     },
     {
       day: "Wednesday",
-      slots: [
-        "6:30 AM",
-        "7:30 AM",
-        "8:30 AM",
-        "5:30 PM",
-        "6:30 PM",
-        "7:30 PM",
-      ],
+      slots: ["6:30 AM", "7:30 AM", "8:30 AM", "5:30 PM", "6:30 PM", "7:30 PM"],
     },
     {
       day: "Thursday",
-      slots: [
-        "6:30 AM",
-        "7:30 AM",
-        "8:30 AM",
-        "5:30 PM",
-        "6:30 PM",
-        "7:30 PM",
-      ],
+      slots: ["6:30 AM", "7:30 AM", "8:30 AM", "5:30 PM", "6:30 PM", "7:30 PM"],
     },
     {
       day: "Friday",
-      slots: [
-        "6:30 AM",
-        "7:30 AM",
-        "8:30 AM",
-        "5:30 PM",
-        "6:30 PM",
-        "7:30 PM",
-      ],
+      slots: ["6:30 AM", "7:30 AM", "8:30 AM", "5:30 PM", "6:30 PM", "7:30 PM"],
     },
     { day: "Saturday", slots: ["7:30 AM", "8:30 AM"] },
   ];
@@ -1111,6 +1076,11 @@ function Footer() {
             </a>
           </div>
         </div>
+
+        <div className="text-md mt-4">
+          Made with <span aria-hidden="true">❤️</span>
+          <span className="sr-only">love</span> in India
+        </div>
       </div>
     </footer>
   );
@@ -1127,7 +1097,7 @@ export default function NewLandingPage() {
         <GettingStartedSection />
         <TimingsSection />
         <PricingSection />
-        <AboutSection />        
+        <AboutSection />
         <ContactSection />
         <FAQSection />
         <Footer />
