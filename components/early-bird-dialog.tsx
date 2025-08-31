@@ -67,7 +67,7 @@ export function EarlyBirdDialogProvider({
       {children}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="border-0 bg-neutral-950 text-white sm:max-w-2xl md:max-w-3xl">
+        <DialogContent className="border-0 bg-neutral-950 text-white sm:max-w-2xl md:max-w-3xl top-[72px] md:top-1/2 -translate-y-0 md:-translate-y-1/2">
           <DialogHeader>
             <DialogTitle className="text-2xl sm:text-3xl">
               Early Bird Offer
