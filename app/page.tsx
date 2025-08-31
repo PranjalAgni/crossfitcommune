@@ -4,6 +4,7 @@ import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import Whatsapp from "@/components/whatsapp";
+import { useEarlyBirdDialog } from "@/hooks/use-early-bird-dialog";
 import { INSTAGRAM_URL, PHONE, WHATSAPP_URL } from "@/lib/constants";
 import { track, trackAndNavigate } from "@/lib/ga";
 import { displayLabel } from "@/lib/time";
@@ -432,8 +433,11 @@ function PricingSection() {
       currency: "INR",
       maximumFractionDigits: 0,
     }).format(n);
+
   const perMonth = (total: number, months: number) =>
     months > 0 ? `≈ ${formatINR(Math.round(total / months))}/mo` : "";
+
+  const { show } = useEarlyBirdDialog();
 
   return (
     <section
@@ -448,6 +452,17 @@ function PricingSection() {
           <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-600">
             Prices in INR. No hidden fees. Taxes extra where applicable.
           </p>
+
+          {/* Temporary link to the popup */}
+          <div className="flex justify-center items-center mt-4">
+            <Button
+              onClick={show}
+              variant="secondary"
+              className="rounded-full border border-neutral-300 bg-transparent text-neutral-900 hover:bg-neutral-100"
+            >
+              View Early Bird Offer
+            </Button>
+          </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {plans.map((plan) => {
