@@ -668,14 +668,14 @@ function FAQSection() {
 function ContactSection() {
   const [form, setForm] = useState({
     name: "",
-    email: "",
     phone: "",
+    email: "",
     message: "",
   });
   const [errors, setErrors] = useState<{
     name?: string;
-    email?: string;
     phone?: string;
+    email?: string;
   }>({});
   const [sent, setSent] = useState(false);
 
@@ -725,9 +725,9 @@ function ContactSection() {
   };
 
   const validate = () => {
-    const next: { name?: string; email?: string; phone?: string } = {};
+    const next: { name?: string; phone?: string; email?: string } = {};
     if (!form.name.trim()) next.name = "Name is required";
-    if (!form.email.trim()) next.email = "Email is required";
+    if (!form.phone.trim()) next.phone = "Phone is required";
     if (form.phone.trim() && !isValidIndianPhone(form.phone)) {
       next.phone =
         "Enter a valid Indian phone number (e.g., 9876543210 or +91 98765 43210).";
@@ -767,7 +767,7 @@ function ContactSection() {
         });
       })
       .finally(() => {
-        setForm({ name: "", email: "", phone: "", message: "" });
+        setForm({ name: "", phone: "", email: "", message: "" });
         setErrors({});
         setSent(true);
         setTimeout(() => setSent(false), 3500);
@@ -814,33 +814,10 @@ function ContactSection() {
 
             <div>
               <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-bold uppercase tracking-wide"
-              >
-                Email *
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={onChange}
-                required
-                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                placeholder="you@example.com"
-                aria-invalid={!!errors.email}
-              />
-              {errors.email && (
-                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <label
                 htmlFor="phone"
                 className="mb-2 block text-sm font-bold uppercase tracking-wide"
               >
-                Phone
+                Phone *
               </label>
               <input
                 id="phone"
@@ -850,8 +827,9 @@ function ContactSection() {
                 pattern="^(?:(?:\+?91[-\s]?)|0)?[6-9]\d{9}$"
                 value={form.phone}
                 onChange={onChange}
+                required
                 className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                placeholder="Optional"
+                placeholder="Your phone number"
                 aria-invalid={!!errors.phone}
                 aria-describedby="phone-help"
               />
@@ -859,6 +837,28 @@ function ContactSection() {
                 <p id="phone-help" className="mt-2 text-sm text-red-600">
                   {errors.phone}
                 </p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-bold uppercase tracking-wide"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={onChange}
+                className="block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 shadow-sm placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                placeholder="Optional"
+                aria-invalid={!!errors.email}
+              />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
               )}
             </div>
 
