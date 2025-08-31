@@ -450,7 +450,7 @@ function PricingSection() {
             Pricing Plans
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-600">
-            Prices in INR. No hidden fees. Taxes extra where applicable.
+            Prices in INR. No hidden fees. Including GST.
           </p>
 
           {/* Temporary link to the popup */}
