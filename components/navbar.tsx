@@ -11,9 +11,9 @@ const navItems = [
   { label: "Home", href: "#home" },
   { label: "Schedule", href: "#schedule" },
   { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
   { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
