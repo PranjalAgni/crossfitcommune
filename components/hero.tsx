@@ -27,7 +27,7 @@ export default function Header() {
       <div className="mx-auto grid min-h-[82vh] max-w-7xl place-items-center px-4 py-24 sm:px-6 lg:px-8">
         <div className="max-w-4xl text-left text-white">
           <p className="text-xs bg-black font-bold uppercase tracking-[0.18em] text-white w-fit">
-          CrossFit Gym in Hyderabad,Telangana
+          CrossFit Affiliated Gym in Hyderabad
           </p>
           <h1 className="leading-tight">
             <span className="block text-[clamp(2.5rem,6vw,6rem)] font-extrabold">

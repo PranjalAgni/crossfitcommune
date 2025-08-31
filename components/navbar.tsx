@@ -28,6 +28,7 @@ export default function Navbar() {
   // JOIN NOW skewed button styled with shadcn/ui Button
   const JoinNow = () => (
     <Button
+      onClick={() => setOpen(false)}
       asChild
       className={`transform skew-x-[-8deg] px-5 py-2 font-extrabold tracking-wide md:px-6 md:py-2
         ${
@@ -36,7 +37,7 @@ export default function Navbar() {
             : "md:bg-sky-400 md:text-neutral-900 bg-neutral-900 text-white"
         }`}
     >
-      <a href="#join">
+      <a href="#contact">
         <span className="block skew-x-[8deg]">JOIN NOW</span>
       </a>
     </Button>
