@@ -67,8 +67,8 @@ export function EarlyBirdDialogProvider({
       {children}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="border-0 bg-neutral-950 text-white sm:max-w-2xl md:max-w-3xl top-[72px] md:top-1/2 -translate-y-0 md:-translate-y-1/2">
-          <DialogHeader>
+        <DialogContent className="border-0 bg-neutral-950 text-white sm:max-w-2xl md:max-w-3xl max-h-[90vh] flex flex-col">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="text-2xl sm:text-3xl">
               Early Bird Offer
             </DialogTitle>
@@ -83,8 +83,8 @@ export function EarlyBirdDialogProvider({
             </DialogDescription>
           </DialogHeader>
 
-          {/* Scrollable content wrapper (mobile-first) */}
-          <div className="max-h-[70vh] overflow-y-auto space-y-6 pr-1">
+          {/* Scrollable content wrapper */}
+          <div className="flex-1 overflow-y-auto space-y-6 pr-1 min-h-0">
             {/* Standard Pricing */}
             <section>
               <h3 className="mb-3 text-lg font-bold uppercase tracking-wide text-white/90">
@@ -151,7 +151,7 @@ export function EarlyBirdDialogProvider({
           </div>
 
           {/* Actions */}
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="flex-shrink-0 mt-6 flex flex-wrap gap-3">
             <Button
               asChild
               onClick={() => {
