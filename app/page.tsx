@@ -1057,7 +1057,7 @@ function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-black pt-6 text-sm text-black/70">
-          <p>©{year} Copyright YOUR BOX</p>
+          <p>©{year} Copyright Crossfit Commune</p>
           <div className="flex items-center gap-4">
             <a
               aria-label="Whatsapp"
