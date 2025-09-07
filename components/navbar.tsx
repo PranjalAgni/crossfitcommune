@@ -182,17 +182,7 @@ export default function Navbar() {
             <JoinNow />
           </nav>
           <div className="flex flex-col items-center gap-4 px-6 pb-16 pt-4">
-            <div className="text-center">
-              <h3 className="text-lg font-bold text-neutral-900 mb-2">
-                Visit Us
-              </h3>
-              <p className="text-sm text-neutral-600 mb-3">
-                CrossFit Commune
-                <br />
-                Gachbowli, Hyderabad
-                <br />
-                Telangana, India
-              </p>
+            <div className="text-center">     
               <a
                 href="https://maps.app.goo.gl/F5G71h3HZRufYYaM6"
                 target="_blank"
@@ -218,7 +208,7 @@ export default function Navbar() {
                 >
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
-                Open in Google Maps
+                 Find Our Location
               </a>
             </div>
           </div>
