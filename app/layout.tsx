@@ -36,6 +36,7 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+// Do the layout changes to render common sections in the layout itself
 export default function RootLayout({
   children,
 }: Readonly<{
