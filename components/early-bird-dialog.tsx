@@ -74,7 +74,7 @@ export function EarlyBirdDialogProvider({
             </DialogTitle>
             <DialogDescription className="text-neutral-300">
               <span className="font-semibold text-white">
-                For the first 50 members only.
+                For the first 25 members only.
               </span>{" "}
               One-time promotional rate applies to your first membership term.{" "}
               <span className="font-medium">
@@ -116,7 +116,7 @@ export function EarlyBirdDialogProvider({
                 Early Bird
               </div>
               <h3 className="mb-3 text-lg font-bold uppercase tracking-wide text-white/90">
-                Founding 50 Special Pricing
+                Founding 25 Special Pricing
               </h3>
               <div className="overflow-hidden rounded-xl ring-1 ring-white/10">
                 <table className="w-full table-fixed border-separate bg-neutral-900/40 text-left">
