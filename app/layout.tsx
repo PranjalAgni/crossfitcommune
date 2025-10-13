@@ -3,7 +3,6 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { EarlyBirdDialogProvider } from "@/components/early-bird-dialog";
 
 export const metadata: Metadata = {
   title: "Crossfit Commune",
@@ -48,7 +47,7 @@ export default function RootLayout({
         className={`${outfit.className} antialiased`}
         cz-shortcut-listen="true"
       >
-        <EarlyBirdDialogProvider>{children}</EarlyBirdDialogProvider>
+        {children}
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-C20QEVTR8B"
