@@ -4,6 +4,7 @@ import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import Whatsapp from "@/components/whatsapp";
+import { ReviewsSection } from "@/components/reviews-section";
 import { INSTAGRAM_URL, PHONE, WHATSAPP_URL } from "@/lib/constants";
 import { track, trackAndNavigate } from "@/lib/ga";
 import { displayLabel } from "@/lib/time";
@@ -1095,6 +1096,7 @@ export default function NewLandingPage() {
         <Hero />
         <BenefitsSection />
         <CommunityLocationSection />
+        <ReviewsSection />
         <GettingStartedSection />
         <TimingsSection />
         <PricingSection />
