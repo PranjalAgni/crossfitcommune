@@ -23,7 +23,7 @@ export const REVIEWS: Review[] = [
     author: "Jigna Shah",
     rating: 5,
     date: "Oct 6, 2025",
-    text: `CrossFit Commune is hands down one of the best CrossFit boxes in Hyderabad! The vibe is great — energetic yet not overcrowded. The new workout sessions are always fresh, and Coach Sandesh really knows how to scale things based on your capacity. Whether you’re just starting out or pushing limits, you get personalized attention. It’s only been a short while since they opened, but I believe this place is going to be one of the top names in CrossFit here soon. Highly recommend if you want real training, strong community, and results. 💪`,
+    text: `CrossFit Commune is hands down one of the best CrossFit boxes in Hyderabad! The vibe is great — energetic yet not overcrowded. The new workout sessions are always fresh, and Coach Sandesh really knows how to scale things based on your capacity. Whether you’re just starting out or pushing limits, you get personalized attention. It’s only been a short while since they opened, but I believe this place is going to be one of the top names in CrossFit here soon. Highly recommend if you want real training, strong community, and results 💪`,
     initials: "JS",
   },
   {
